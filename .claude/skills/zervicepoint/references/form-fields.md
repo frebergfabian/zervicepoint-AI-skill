@@ -85,6 +85,18 @@ Egenskaper per fälttyp, som de förekommer i leverantörens exempel:
 - `DropDown.properties`: `dropdownItems[{id, value, label{kultur}, selected, cost, monthlyCost}]`, `isRestricted`, `isSearchable`, `isMultiSelect`, `isDynamicBind`, `dataSource`, `allowClear`, `placeholder{kultur}`, `useClientCache`, `useDynamicDebounce`, `minimumSearchLength`.
 - `TextBlockRTF.properties.text{kultur}`. `FormSection.properties`: `direction`, `chrome`, `fullwidth`.
 
+### Tillägg observerade i en verklig export (1.34.5202)
+
+En kundexport från 1.34.5202 (schema 1) innehöll fler nycklar än leverantörens snippets från 1.25:
+
+- **Per fält:** `id` (databas-ID), `isEnabled` (false = tillfälligt inaktiverat fält), `longDescription{kultur}` (HTML för infobubblan), `descriptionPosition`, `selectedJavascriptModalTab` (editorns UI-läge, ofarligt) och `size` med värdena `"1"`–`"6"`. `FormSection.fieldsViewModel` har även `displayContextMenuEnableAction` och `displayContextMenuDisableAction`.
+- **`InputText.properties.maxLength`** är en sträng, t.ex. `"12"`. **`InputTextArea.properties.rows`** är ett tal.
+- **`DatePicker.properties`:** `defaultvalue`, `selectableDate`, `selectableTime`, `useCurrentDateDefault`, `weekdays` (bitmask; 31 = de fem första dagarna) och `intervals: [{start, end, isAllowed}]`, där start/end är dagar relativt idag (t.ex. `start: 14` = tidigast om 14 dagar). På fältnivå finns dessutom `day_0`–`day_6` med bitvärdena 1, 2, 4 … eller 0. Kontrollera i målversionens datumväljare vilken veckodag `day_0` motsvarar innan du ändrar.
+- **`CheckBox.properties`:** `checkboxItems[]` (samma form som dropdownItems), `defaultvalue` (bool), `isMulti` (0/1), `cost`, `monthlyCost`, `isDynamicBind` och `dataSource`. En enkel checkbox binds till Boolean.
+- **`validationtype`** följer troligen designerns ordning: 0 None, 1 Name, 2 Email, 3 Numerical, 4 Alphanumeric, 5 Custom (regex i `validationpattern`). Ordningen är härledd ur leverantörens lista och exempel, inte dokumenterad som numrering.
+- **Variabler** var slimmade i denna export: `id`, `name`, `displayName`, `description`, `value`, `variableType`, `shouldHide`, `hideLength`, `hideStartIndex`, `isInputParameter`, `isOutputParameter` och `isRequired`. Exporten innehåller bara de variabler formuläret binder. Tjänstens övriga variabler, t.ex. de som arbetsflödet använder, följer inte med.
+- **Systemvariablernas typer**, enligt variabelfliken: `System.Order.Id`, `.Cost`, `.MonthlyCost`, `.Quantity`, `System.Process.Id` och `System.Service.Id` är **Decimal**. `System.Order.OrderDate` är DateTime, `System.Service.Name` är Translation och `System.Service.Draft` är Boolean. Övriga är String.
+
 Arbetsflödes-JSON och aktivitetstyper beskrivs i [Arbetsflöden och aktiviteter](workflow-activities.md#urklipps-json-för-arbetsflöden).
 
 ### Regler vid hand- eller AI-redigering av export

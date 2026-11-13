@@ -91,6 +91,16 @@ Webservicens parametrar `Config`/`Parameters` ligger i ParameterSetName `Hidden`
 - **Fönster-load:** `$(window).load` stöds inte i nya UI. Leverantören föreslår polling med `setInterval` tills fältet har värde; föredra `onLoad`/`change` där det räcker.
 - **Datakälla med tomt Id** ger objektreferensfel i ClientWebService; filtrera bort `$null` innan `Select-Object`.
 
+## Observerat i verkliga formulär (odokumenterat – verifiera)
+
+- **`Z('#')`** (tom identifierare) används i kundkod för att hämta *alla* fält. Varje element har bland annat `name` och `type` och svarar på Z-metoder. Det är praktiskt för serialisering men inte dokumenterat.
+- **Klientens typnamn** skiljer sig från exportens `type`: `fieldSet`, `inputHidden`, `textBlock`, `button`, `checkBox`, `inputDatePicker`, `serviceSelector`, `InputDropdownField`, `dropDownList`, `dynamicDropDownList`, `unrestrictedDropDownList` m.fl. Använd dem bara för filtrering och testa efter uppgradering.
+- **Intern komponentstruktur** som `field.component.props.visible`, `.displayName` och `.value` förekommer i kundkod för att läsa synlighet och visningstext. Det är lika ömtåligt som den DOM-åtkomst som togs bort i nya UI. Använd i stället `visible()`, `displayName()`, `getItem().text` och `isMultiple()`.
+- **Skiftläge i selektorn:** leverantören anger inte om `Z('#Namn')` är skiftlägeskänslig. Utgå från att den är det, och skriv exakt identifierare. Kontrollera befintlig kod med en ID-lista; `Z('#X').length === 0` avslöjar en felstavning i konsolen.
+- **Okända ID:n ger inget fel.** `Z('#finnsInte').val('x')` är tyst. Felstavade fält-ID:n märks därför först när en funktion uteblir.
+- **`add()` utan `clear()`** i `onLoad` ger dubbletter när flera fält bygger samma lista, eller när formuläret laddas med befintliga värden (godkännar- eller taskformulär, utkast).
+- **Läs inte resultatet av `Z.call` synkront.** Kod efter `Z.call(...)` körs innan `.done()`. Lägg logik som beror på svaret inuti `.done()`.
+
 ## Förbjudet i nya UI (DOM-manipulation)
 
 `getElement()`, `get$Element()`, `getContainer()`, `get$Container()`, jQuery (`$(…)`, `jQuery`), `document.query*`, `document.get*`, `document.body` och `$.validator` stöds inte. Varningar loggades från 1.20, och gamla UI togs bort helt i 1.35.2.

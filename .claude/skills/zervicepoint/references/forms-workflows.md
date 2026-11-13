@@ -27,6 +27,21 @@ Fullständig metodlista, versionskrav och ersättningar för DOM-manipulation fi
 
 Gruppera korta fält i par, t.ex. förnamn/efternamn och start/slutdatum; låt långa val, information, fritext och sammanfattning stå på egen rad. För presentationsexporten användes `size: "3"` för par och `"6"` för hela rader, `lineBreak` på sista fältet per rad och `properties.fullwidth` på sektioner. Det är ett utgångsmönster från exporten, inte ett löfte om samma rendering i alla klienter. Kontrollera faktisk bredd på smal och bred yta.
 
+## Granskningschecklista för befintliga formulär
+
+Mönster som har hittats i verkliga, långlivade kundformulär. Kör checklistan på en export innan ändring.
+
+1. **Referenser:** extrahera alla `Z('#…')` ur `onLoad`/`onChange`/`onSubmit` och jämför med fältnamnen, rekursivt, med exakt skiftläge. Felstavade och borttagna fält ger tysta fel.
+2. **Bindningar:** jämför `boundTo` med variabelnamn. Notera fält vars `boundTo` avviker från `name` (t.ex. suffixet `1` efter kopiering) och tjänstvariabler som inget längre använder.
+3. **Skriptbärare:** dolda fält (`InputHidden`, ofta obundna) används för globala funktioner (`window.fn = …`), serialisering till JSON och sammanställning av ärendetext i `onSubmit`. Kontrollera att de inte binds i onödan och att de bara använder dokumenterade Z-metoder.
+4. **Data i kod:** stora if/else-kedjor med hårdkodade listor (titlar, enheter, behörighetstexter som HTML) i `onChange`, ofta dubblerade i `onLoad`. Kandidat för datakälla eller delad lista med signerade värden.
+5. **Laddningsordning:** `onLoad` som lägger till alternativ utan `clear()`, läser värden före ett asynkront `Z.call` eller förutsätter tomt formulär. Testa med förifyllt formulär och i godkännarformuläret.
+6. **Visa/dölj utan rensning:** när en gren eller ett system väljs bort ska beroende fält rensas och kravet tas bort. Kontrollera vad serialiseringen faktiskt skickar för dolda fält.
+7. **Villkorade krav:** fält som visas villkorat, t.ex. slutdatum vid tidsbegränsad anställning, bör få `require(true/false)` i samma gren.
+8. **Unrestricted dropdowns:** värden byggda med `add()` är inte signerade. Godtagbart när de bara blir ärendetext, men inte när arbetsflödet fattar beslut på dem.
+9. **Uppgraderingsrisk:** sök efter jQuery, `get$Element`, `component.props` och typnamnsfilter. De bryts oftast vid UI-byte (gamla UI borttaget i 1.35.2).
+10. **Död kod:** utkommenterade block, jämförelser mot värden som inte längre finns, inaktiverade fält (`isEnabled: false`). Rensa i ett eget utkast, separat från funktionsändringar.
+
 ## Verifiera och felsök
 
 1. Ta kopia; gör strukturell diff för rekursiva fält och event. Kontrollera namn, typer, dubbla ID:n och att använda egna bindningar kan lösas i rätt scope.

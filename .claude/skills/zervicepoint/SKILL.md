@@ -42,6 +42,7 @@ Utgå från användarens aktuella export och uttryckligen godkända ändringar. 
 
 ## Hantera data och externa system
 
+- Organisationsspecifika ID:n (TOPdesk-GUID:er, tjänst- och sid-ID:n, butiksadress, behörighetsmatriser) hör hemma i en privat överbyggnadsskill eller i den gitignorerade mappen `private/`, aldrig i detta repo. Finns en sådan skill installerad, läs den också.
 - Arbeta med syntetiska testpersoner och konfigurationsplatshållare. Lämna råexporter, ärendebilagor, interna kataloger, driftuppgifter och hemligheter utanför det publika repot.
 - Validera rollprofil, tillåtna åtgärder, behörighetsnivå och användarens rätt att beställa på serversidan. Formulärets visning är inte behörighetskontroll.
 - Ärendet kan ge beställaren användarnamn, e-postadress och besked om hur första inloggningen går till. Förmedla eventuella starthemligheter via en godkänd separat kanal; lägg dem inte i ärendetext, ordervariabler eller loggar.

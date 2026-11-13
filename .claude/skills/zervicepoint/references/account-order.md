@@ -23,6 +23,6 @@ Det här är utvecklingshistorik från chatt, formexport och lokala kontroller; 
 
 Inklistrad workflow-export visar `Topdesk / Activity.Topdesk / New-TDincident` och därefter en statusaktivitet. Exempel på bindningar: `requestString` ← `topdeskRequest`, `objectJson` ← motsvarande variabel, datum från `dtStartDatum`/`dtAvslutDatum` och korrelation med `System.Order.Id`. Det finns ingen AD-skapande aktivitet i den kopian.
 
-Två granskningspunkter, inte godkända kodändringar: statussteget refererar `TDincidentNumber` medan provider-resultatet var obundet i exporten; verifiera om någon annan mekanism tilldelar värdet. En anpassad TOPdesk-parameter hade samtidigt provtext och datumbindning i representationen; kontrollera verklig parametersemantik i provider och testärende.
+Två granskningspunkter, inte godkända kodändringar: statussteget refererar `TDincidentNumber` medan provider-resultatet var obundet i exporten. Det är troligen avsiktligt: egna PowerShell-aktiviteter uppdaterar variabler genom att returnera en hashtable vars nycklar matchar variabelnamn ([datatåget](workflow-activities.md#orderflödet-i-korthet)). Bekräfta att `New-TDincident` returnerar just nyckeln `TDincidentNumber`. En anpassad TOPdesk-parameter hade samtidigt provtext och datumbindning i representationen; kontrollera verklig parametersemantik i provider och testärende.
 
 Skilj lokalt ändrad kod, lokalt testade event, import och faktisk integration. Varken verifierad AD-skrivning, verkligt testärende eller publicering är styrkt av de lokala kontrollerna.

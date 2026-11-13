@@ -69,6 +69,8 @@ Approval:  connectedFormName, approvalType ("parallel"), required ("one"), onTim
            event: "OnForeachApprove" | "OnForeachReject" | … } ]
 ```
 
+I en export från 1.34.5202 har värdeobjekten ingen `hasWarning`/`boundToId`. En parameter med `state: "bound"` kan ändå ha kvar ett gammalt `value` (t.ex. testtext). Det används inte så länge bindningen gäller, men det följer med vid kopiering, så städa det. `providerResult` (Boolean) kan vara obundet medan aktivitetens hashtable-utdata ändå uppdaterar variabler med samma namn.
+
 `methodId` och `boundToId` pekar på databas-ID:n i källmiljön. Kontrollera efter inklistring att varje provideraktivitet hittar rätt metod och att bindningarna pekar på rätt variabler. Varningar visas som `hasWarning`/`displayWarning`.
 
 ## ZerFlow (ny arbetsflödesmotor, 1.35+)
