@@ -14,6 +14,8 @@ Observerat arbetsflöde: aktivitetstyp `Provider` har metodnamn, paket/modul, mi
 
 ## Z()-JavaScript
 
+Fullständig metodlista, versionskrav och ersättningar för DOM-manipulation finns i [Z()-API](javascript-api.md). Fälttyper och JSON-egenskaper finns i [Formulärfält och JSON](form-fields.md). Nedan följer arbetsregler.
+
 - Läs [JavaScript-referensen](https://docs.zervicepoint.com/reference/javascript/) och [kaskadexemplet](https://docs.zervicepoint.com/reference/snippets/form-cascading-dropdown/). Använd dokumenterade formmetoder framför DOM-selektorer och interna klasser. Kontrollera syntax och beteende för målversionen; återanvänd en redan verifierad anropsform där det går.
 - `onLoad` sätter utgångsläge och behöver hantera förifylld data. `onChange` synkar beroenden. `onSubmit` gör slutlig formulärkontroll och bygger vid behov orderdata. Kör delad logik konsekvent och håll koll på eventordning, särskilt när ett fält fylls programmatiskt.
 - `Z('#fält')` refererar till formulärets tekniska namn. Kontrollera skillnaden mellan `val()` (sparat värde) och det som visas. Hantera tomt värde, enkelval och multival uttryckligen. Kontrollera vilka metodsignaturer exporten använder för `getItems`, `add`, `require`, `valid`, `show` och `hide`.

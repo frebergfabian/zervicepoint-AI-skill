@@ -1,0 +1,3 @@
+# Lokal fulltextspegel av leverantörens dokumentation (upphovsrätt) – generera med scripts/sync_docs.py
+.claude/skills/zervicepoint/docs-cache/
+__pycache__/

@@ -1,6 +1,6 @@
 ---
 name: zervicepoint
-description: Utvecklar och granskar Zervicepoint-tjänster, formulärexporter, Z()-JavaScript, arbetsflöden, PowerShell-plugins och beställningsportaler. Använd för onboarding, Nytt användarkonto, rollprofiler, VoO, IFO, ZF, AD/Exchange/TOPdesk, felsökning, testmiljöer eller portalens innehåll och ikoner.
+description: Utvecklar och granskar Zervicepoint-tjänster, formulärexporter, Z()-JavaScript, arbetsflöden, datakällor, PowerShell-plugins och beställningsportaler, med indexerad leverantörsdokumentation (docs.zervicepoint.com). Använd för formulärfält, Z.call, aktiviteter, ZerFlow, versionskrav, roller, REST/PowerShell-API, onboarding, Nytt användarkonto, rollprofiler, VoO, IFO, ZF, AD/Exchange/TOPdesk, felsökning, testmiljöer eller portalens innehåll och ikoner.
 ---
 
 # Zervicepoint
@@ -11,7 +11,15 @@ Utgå från användarens aktuella export och uttryckligen godkända ändringar. 
 
 | När frågan gäller | Läs |
 | --- | --- |
-| Formulär-JSON, `Z()`, layout, validering, arbetsflöde, import eller Event 1023 | [Formulär och arbetsflöden](references/forms-workflows.md) |
+| Arbetssätt för formulärexport, layout, verifiering, import eller Event 1023 | [Formulär och arbetsflöden](references/forms-workflows.md) |
+| `Z()`-metoder, `Z.call`, `Z.service`, händelser, förbjuden DOM-manipulation | [Z()-API](references/javascript-api.md) |
+| Fälttyper, inställningar, variabeltyper, systemvariabler, urklipps-JSON för formulär | [Formulärfält och JSON](references/form-fields.md) |
+| Inbyggda aktiviteter, egna PowerShell-aktiviteter, grouped activity, delad process, workflow-JSON, ZerFlow | [Arbetsflöden och aktiviteter](references/workflow-activities.md) |
+| Dropdown-datakällor, webservices, tabeller, `$config`, rollfiltrering, CWS-drift | [Datakällor](references/datasources.md) |
+| Tjänster, drafts/versioner, roller, sidor/tabeller, PowerShell- och REST-API | [Plattform och administration](references/platform-admin.md) |
+| Vilken version en funktion kräver, nyheter och brytande ändringar | [Versioner](references/versions.md) |
+| Felmeddelanden, händelse-ID och kända problem | [Felsökning](references/troubleshooting.md) |
+| Hitta rätt sida i leverantörens dokumentation (alla 289 sidor) | [Dokumentationskatalog](references/docs-catalog.md) och fulltext i `docs-cache/` |
 | Onboarding, rollprofiler, fält, utbildning, behörigheter och utrustning | [Onboarding](references/onboarding.md) |
 | Nytt användarkonto, VoO, IFO, ZF, Unit4 och leveransstatus | [Nytt användarkonto](references/account-order.md) |
 | Eget plugin, provider-konfiguration, AD, Exchange eller TOPdesk | [Plugins och integrationer](references/plugins.md) |
@@ -19,6 +27,10 @@ Utgå från användarens aktuella export och uttryckligen godkända ändringar. 
 | Installation, teststore, worker, versioner, licens och miljöval | [Testmiljöer](references/environments.md) |
 | Dokumentationslänkar, källkritik och versionsstöd | [Källor](references/sources.md) |
 | Syntetiskt exempel på rollprofil som underlag för ett eget plugin | [Rollprofilsexempel](examples/role-profile.example.json) och [Onboarding](references/onboarding.md) |
+
+## Slå upp i leverantörens dokumentation
+
+Ämnesreferenserna ovan är en granskad syntes av docs.zervicepoint.com (genomgången 2026-11-13). För exakta detaljer, kodexempel eller ämnen som inte täcks: sök i den lokala fulltextspegeln `docs-cache/` (Grep efter metodnamn, felkod eller rubrik) och använd [katalogen](references/docs-catalog.md) för att hitta rätt sida. Saknas `docs-cache/`, eller behövs färsk dokumentation, kör `python scripts/sync_docs.py` från repots rot. Spegeln är leverantörens upphovsrättsskyddade text och committas inte. Citera sparsamt och länka till originalsidan. Ange versionskrav när svaret beror på en funktion; dokumentationen beskriver senaste versionen, som inte behöver vara målmiljöns.
 
 ## Arbeta i den här ordningen
 
