@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "status": "synthetic-example",
+  "profileId": "demo-education-demo-school-teacher",
+  "version": 1,
+  "scope": {
+    "sectorId": "demo-education",
+    "workplaceId": "demo-school",
+    "titleId": "demo-teacher"
+  },
+  "displayName": "Lärare vid Exempelskolan",
+  "description": "Illustrerar hur standard, tillval och utförande kan beskrivas.",
+  "items": [
+    {
+      "key": "demo-account",
+      "label": "Arbetskonto",
+      "selection": "required",
+      "fulfillment": "manual",
+      "ownerRole": "Demo IT",
+      "approval": "manager"
+    },
+    {
+      "key": "demo-learning-platform",
+      "label": "Lärplattform",
+      "selection": "default",
+      "fulfillment": "synchronized",
+      "sourceSystem": "Demo elevregister",
+      "dependsOn": ["demo-account"],
+      "ownerRole": "Demo skoladministration"
+    },
+    {
+      "key": "demo-access-tag",
+      "label": "Passertagg",
+      "selection": "optional",
+      "fulfillment": "manual",
+      "requiresJustification": true,
+      "ownerRole": "Demo lokalansvarig",
+      "approval": "manager"
+    }
+  ]
+}
